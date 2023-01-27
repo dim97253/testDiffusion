@@ -1,7 +1,6 @@
 nvidia-smi
 python -m pip install torch
 python -m pip install flask
-python -m pip install io
 python -m pip install tensorflow
 python -m pip install transformers
 python -m pip install diffusers

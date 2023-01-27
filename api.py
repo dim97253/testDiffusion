@@ -1,11 +1,7 @@
 from flask import Flask, send_file, request, render_template, make_response
-from turtle import width
 from diffusers import DiffusionPipeline, DPMSolverMultistepScheduler, StableDiffusionPipeline, EulerAncestralDiscreteScheduler
 import torch
-import matplotlib.pyplot as plt
-import matplotlib.image as mpimg
 import sys # to access the system
-import cv2
 import base64
 from io import BytesIO
 

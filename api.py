@@ -29,12 +29,12 @@ def img():
     buffer = BytesIO()
     image.save(buffer, format='png')
     img_bytes = buffer.getvalue()
-    #img_b64 = base64.b64encode(img_bytes)
-    response = make_response(img_bytes)
-    response.headers.set('Content-Type', 'image/pmg')
-    response.headers.set(
-        'Content-Disposition', 'attachment', filename='output.png')
-    return response
+    img_b64 = base64.b64encode(img_bytes)
+    #response = make_response(img_bytes)
+    #response.headers.set('Content-Type', 'image/pmg')
+    #response.headers.set(
+    #   'Content-Disposition', 'attachment', filename='output.png')
+    return img_b64
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8000)

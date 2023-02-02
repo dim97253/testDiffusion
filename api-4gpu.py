@@ -5,10 +5,6 @@ import sys # to access the system
 import base64
 from io import BytesIO
 
-
-#devices
-devices=(torch.cuda.device(0),torch.cuda.device(1),torch.cuda.device(2),torch.cuda.device(3))
-
 #model openjourney
 repo_id = "prompthero/openjourney-v2"  
 pipe_openjourney2 = StableDiffusionPipeline.from_pretrained(repo_id,torch_dtype=torch.float16)
@@ -27,10 +23,10 @@ pipe_anything4 = StableDiffusionPipeline.from_pretrained(repo_id,torch_dtype=tor
 pipe_anything4.scheduler = DPMSolverMultistepScheduler.from_config(pipe_anything4.scheduler.config)
 
 #Set devices
-pipe_openjourney2 = pipe_openjourney2.to(devices[0])
-pipe_diffusion15 = pipe_diffusion15.to(devices[1])
-pipe_diffusion21 = pipe_diffusion21.to(devices[2])
-pipe_anything4 = pipe_anything4.to(devices[3])
+pipe_openjourney2 = pipe_openjourney2.to('cuda:0')
+pipe_diffusion15 = pipe_diffusion15.to('cuda:1')
+pipe_diffusion21 = pipe_diffusion21.to('cuda:2')
+pipe_anything4 = pipe_anything4.to('cuda:3')
 
 app = Flask(__name__)
 @app.route('/', methods=['GET'])

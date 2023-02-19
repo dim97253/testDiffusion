@@ -29,14 +29,15 @@ pipe_diffusion21 = pipe_diffusion21.to('cuda:2')
 pipe_anything4 = pipe_anything4.to('cuda:3')
 
 app = Flask(__name__)
-@app.route('/', methods=['GET'])
+@app.route('/', methods=['POST'])
 def img():
     #args
-    args = request.args
-    prompt = args['prompt']
-    negative_prompt = args['neg_prompt']
-    steps=int(args['steps'])
-    model_name=args['model']
+    data = request.get_json()
+    prompt = data.get('prompt', '')
+    negative_prompt = data.get('neg_prompt', '')
+    model_name = data.get('model', '')
+    steps = int(data.get('steps', ''))
+    src_img = str(data.get('srcimage', ''))
     
     if model_name == 'openjourney2':
         print('Selected model: openjourney2')

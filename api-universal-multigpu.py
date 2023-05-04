@@ -20,12 +20,12 @@ pipe_diffusion15.scheduler = DPMSolverMultistepScheduler.from_config(pipe_diffus
 pipe_diffusion15 = pipe_diffusion15.to('cuda:0')
 pipe_diffusion15.enable_attention_slicing()
 
-pipe_openjourney = StableDiffusionPipeline.from_pretrained(repo_diffusion15, torch_dtype=torch.float16)
+pipe_openjourney = StableDiffusionPipeline.from_pretrained(repo_openjourney, torch_dtype=torch.float16)
 pipe_openjourney.scheduler = DPMSolverMultistepScheduler.from_config(pipe_openjourney.scheduler.config)
 pipe_openjourney = pipe_openjourney.to('cuda:1')
 pipe_openjourney.enable_attention_slicing()  
 
-pipe_anything = StableDiffusionPipeline.from_pretrained(repo_diffusion15, torch_dtype=torch.float16)
+pipe_anything = StableDiffusionPipeline.from_pretrained(repo_anything, torch_dtype=torch.float16)
 pipe_anything.scheduler = DPMSolverMultistepScheduler.from_config(pipe_openjourney.scheduler.config)
 pipe_anything = pipe_openjourney.to('cuda:2')
 pipe_anything.enable_attention_slicing()  

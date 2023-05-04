@@ -9,7 +9,7 @@ from io import BytesIO
 
 
 app = Flask(__name__)
-repo_id = "I:/Models/stable-diffusion-2-inpainting" #Local inpainting
+repo_id = "stabilityai/stable-diffusion-2-inpainting"
 
 def safety_checker(images, clip_input):
     return images, False
@@ -25,7 +25,7 @@ def img():
     src_mask64 = str(data.get('srcmask', ''))
     pipe = StableDiffusionInpaintPipeline.from_pretrained(repo_id,local_files_only=True, torch_dtype=torch.float16) #inpainting
            
-    pipe = pipe.to("cuda")
+    pipe = pipe.to('cuda:1')
     pipe.enable_attention_slicing()    
     pipe.safety_checker = safety_checker
 

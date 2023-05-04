@@ -1,5 +1,4 @@
 
-from asyncio.windows_events import NULL
 from flask import Flask, send_file, request, render_template, make_response
 from diffusers import DiffusionPipeline, DPMSolverMultistepScheduler, StableDiffusionPipeline, EulerAncestralDiscreteScheduler, AutoencoderKL, HeunDiscreteScheduler, StableDiffusionImg2ImgPipeline, StableDiffusionInpaintPipeline
 import torch
@@ -45,7 +44,7 @@ def img():
     else:
         steps=10
     src_img64 = str(data.get('srcimage', ''))
-    pipe=NULL
+    pipe
     if model_name == 'openjourney2':
         print('Selected model: openjourney2')
         pipe = pipe_openjourney
@@ -59,7 +58,7 @@ def img():
         print('Running default model: openjourney2')
         pipe = pipe_openjourney  
 
-    images = NULL   
+    images   
     if src_img64 != 'undefined': #img2img
         img2img = StableDiffusionImg2ImgPipeline(**pipe.components)
         src_img = Image.open(io.BytesIO(base64.decodebytes(bytes(src_img64, "utf-8"))))

@@ -9,9 +9,9 @@ from io import BytesIO
 
 
 app = Flask(__name__)
-repo_anything = "I:/Models/models--andite--anything-v4.0/snapshots/d0966af39e715d6e97a7664eafcd19930e8efb84" #Local anything-4.0
-repo_openjourney = "I:/Models/models--prompthero--openjourney-v2/snapshots/47257274a40e93dab7fbc0cd2cfd5f5704cfeb60" #Local openjourney-v2
-repo_diffusion15 = "I:/Models/models--runwayml--stable-diffusion-v1-5/snapshots/39593d5650112b4cc580433f6b0435385882d819" #Local diffusion
+repo_anything = "andite/anything-v4.0"
+repo_openjourney = "prompthero/openjourney-v2"
+repo_diffusion15 = "runwayml/stable-diffusion-v1-5"
 
 def safety_checker(images, clip_input):
     return images, False
@@ -34,7 +34,7 @@ def img():
         if model_name == "diffusion15":
             pipe = StableDiffusionImg2ImgPipeline.from_pretrained(repo_diffusion15,local_files_only=True)
         pipe.scheduler = DPMSolverMultistepScheduler.from_config(pipe.scheduler.config)
-        pipe = pipe.to("cuda")
+        pipe = pipe.to('cuda:0')
         pipe.enable_attention_slicing()    
         pipe.safety_checker = safety_checker
         src_img = Image.open(io.BytesIO(base64.decodebytes(bytes(src_img64, "utf-8"))))
@@ -49,7 +49,7 @@ def img():
         if model_name == "diffusion15":
             pipe = StableDiffusionPipeline.from_pretrained(repo_diffusion15,local_files_only=True)
         pipe.scheduler = DPMSolverMultistepScheduler.from_config(pipe.scheduler.config)
-        pipe = pipe.to("cuda")
+        pipe = pipe.to('cuda:0')
         pipe.enable_attention_slicing()    
         pipe.safety_checker = safety_checker
         images = pipe(prompt = prompt, negative_prompt  = negative_prompt, num_inference_steps=steps, width =512, height=512).images

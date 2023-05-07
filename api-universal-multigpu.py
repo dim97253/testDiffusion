@@ -14,21 +14,23 @@ app = Flask(__name__)
 repo_anything = 'andite/anything-v4.0'
 repo_openjourney = 'prompthero/openjourney-v2'
 repo_diffusion15 = 'runwayml/stable-diffusion-v1-5'
+repo_diffusion_inpainting = 'runwayml/stable-diffusion-inpainting'
 
 pipe_diffusion15 = StableDiffusionPipeline.from_pretrained(repo_diffusion15, torch_dtype=torch.float16)
 pipe_diffusion15.scheduler = DPMSolverMultistepScheduler.from_config(pipe_diffusion15.scheduler.config)
 pipe_diffusion15 = pipe_diffusion15.to('cuda:0')
-pipe_diffusion15.enable_attention_slicing()
 
 pipe_openjourney = StableDiffusionPipeline.from_pretrained(repo_openjourney, torch_dtype=torch.float16)
 pipe_openjourney.scheduler = DPMSolverMultistepScheduler.from_config(pipe_openjourney.scheduler.config)
 pipe_openjourney = pipe_openjourney.to('cuda:1')
-pipe_openjourney.enable_attention_slicing()  
 
 pipe_anything = StableDiffusionPipeline.from_pretrained(repo_anything, torch_dtype=torch.float16)
 pipe_anything.scheduler = DPMSolverMultistepScheduler.from_config(pipe_anything.scheduler.config)
 pipe_anything = pipe_anything.to('cuda:2')
-pipe_anything.enable_attention_slicing()  
+
+pipe_inpainting = StableDiffusionPipeline.from_pretrained(repo_diffusion_inpainting, torch_dtype=torch.float16)
+pipe_inpainting.scheduler = DPMSolverMultistepScheduler.from_config(pipe_inpainting.scheduler.config)
+pipe_inpainting = pipe_inpainting.to('cuda:3')
 
 #text2img = StableDiffusionPipeline(**pipe.components)
 #img2img = StableDiffusionImg2ImgPipeline(**pipe.components)
@@ -43,7 +45,10 @@ def img():
        steps = int(data.get('steps', ''))
     else:
         steps=10
-    src_img64 = str(data.get('srcimage', ''))
+    src_img64 = str(data.get('srcimage', ''))    
+    src_mask64 = str(data.get('srcmask', ''))
+
+    pipe
     if model_name == 'openjourney2':
         print('Selected model: openjourney2')
         pipe = pipe_openjourney
@@ -57,7 +62,13 @@ def img():
         print('Running default model: openjourney2')
         pipe = pipe_openjourney  
 
-    if src_img64 != 'undefined': #img2img
+    images   
+    if (src_img64 != 'undefined') and (src_mask64!= 'undefined'): #imgInpaint
+        imgInpainting = StableDiffusionInpaintPipeline(**pipe_inpainting.components)
+        src_img = Image.open(io.BytesIO(base64.decodebytes(bytes(src_img64, "utf-8"))))        
+        src_mask = Image.open(io.BytesIO(base64.decodebytes(bytes(src_mask64, "utf-8"))))
+        images = imgInpainting(prompt = prompt,negative_prompt = negative_prompt, image=src_img, mask_image=src_mask).images #inpainting  
+    elif src_img64 != 'undefined': #img2img
         img2img = StableDiffusionImg2ImgPipeline(**pipe.components)
         src_img = Image.open(io.BytesIO(base64.decodebytes(bytes(src_img64, "utf-8"))))
         images = img2img(prompt = prompt, image=src_img, strength=0.60, guidance_scale=18.0, negative_prompt = negative_prompt).images

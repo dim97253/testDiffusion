@@ -17,15 +17,12 @@ repo_diffusion15 = 'runwayml/stable-diffusion-v1-5'
 repo_diffusion_inpainting = 'runwayml/stable-diffusion-inpainting'
 
 pipe_diffusion15 = StableDiffusionPipeline.from_pretrained(repo_diffusion15, torch_dtype=torch.float16)
-pipe_diffusion15.scheduler = DPMSolverMultistepScheduler.from_config(pipe_diffusion15.scheduler.config)
 pipe_diffusion15 = pipe_diffusion15.to('cuda:0')
 
 pipe_openjourney = StableDiffusionPipeline.from_pretrained(repo_openjourney, torch_dtype=torch.float16)
-pipe_openjourney.scheduler = DPMSolverMultistepScheduler.from_config(pipe_openjourney.scheduler.config)
 pipe_openjourney = pipe_openjourney.to('cuda:1')
 
 pipe_anything = StableDiffusionPipeline.from_pretrained(repo_anything, torch_dtype=torch.float16)
-pipe_anything.scheduler = DPMSolverMultistepScheduler.from_config(pipe_anything.scheduler.config)
 pipe_anything = pipe_anything.to('cuda:2')
 
 pipe_inpainting = StableDiffusionPipeline.from_pretrained(repo_diffusion_inpainting, torch_dtype=torch.float16, revision="fp16")

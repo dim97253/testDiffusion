@@ -44,7 +44,7 @@ def img():
     src_img64 = str(data.get('srcimage', ''))    
     src_mask64 = str(data.get('srcmask', ''))
 
-    pipe
+
     if model_name == 'openjourney2':
         print('Selected model: openjourney2')
         pipe = pipe_openjourney
@@ -58,8 +58,8 @@ def img():
         print('Running default model: openjourney2')
         pipe = pipe_openjourney  
 
-    images   
-    if (src_img64 != 'undefined') and (src_mask64!= 'undefined'): #imgInpaint
+  
+    if (src_img64 != 'undefined') and (len(src_mask64)>0): #imgInpaint
         imgInpainting = StableDiffusionInpaintPipeline(**pipe_inpainting.components)
         src_img = Image.open(io.BytesIO(base64.decodebytes(bytes(src_img64, "utf-8"))))        
         src_mask = Image.open(io.BytesIO(base64.decodebytes(bytes(src_mask64, "utf-8"))))

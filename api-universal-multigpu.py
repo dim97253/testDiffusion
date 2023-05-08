@@ -28,8 +28,7 @@ pipe_anything = StableDiffusionPipeline.from_pretrained(repo_anything, torch_dty
 pipe_anything.scheduler = DPMSolverMultistepScheduler.from_config(pipe_anything.scheduler.config)
 pipe_anything = pipe_anything.to('cuda:2')
 
-pipe_inpainting = StableDiffusionPipeline.from_pretrained(repo_diffusion_inpainting, torch_dtype=torch.float16)
-pipe_inpainting.scheduler = DPMSolverMultistepScheduler.from_config(pipe_inpainting.scheduler.config)
+pipe_inpainting = StableDiffusionPipeline.from_pretrained(repo_diffusion_inpainting, torch_dtype=torch.float16, revision="fp16")
 pipe_inpainting = pipe_inpainting.to('cuda:3')
 
 #text2img = StableDiffusionPipeline(**pipe.components)

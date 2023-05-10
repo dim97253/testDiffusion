@@ -8,11 +8,10 @@ import io
 from io import BytesIO
 
 models = []
-models.append('prompthero/openjourney-v2')
+models.append('prompthero/openjourney-v4')
 models.append('runwayml/stable-diffusion-v1-5')
 models.append('andite/anything-v4.0')
 models.append('stabilityai/stable-diffusion-2-inpainting')
-models.append('stabilityai/stable-diffusion-x4-upscaler')
 
 for model in models :
     print ('loading '+str(model))

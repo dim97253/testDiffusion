@@ -9,21 +9,12 @@ from PIL import Image
 import io
 from io import BytesIO
 
-
 app = Flask(__name__)
 
-repo_anything = "I:/Models/models--andite--anything-v4.0/snapshots/d0966af39e715d6e97a7664eafcd19930e8efb84" #Local anything-4.0
-repo_openjourney = "I:/Models/models--prompthero--openjourney-v2/snapshots/47257274a40e93dab7fbc0cd2cfd5f5704cfeb60" #Local openjourney-v2
-repo_diffusion15 = "I:/Models/models--runwayml--stable-diffusion-v1-5/snapshots/39593d5650112b4cc580433f6b0435385882d819" #Local diffusion
-repo_inpainting = "I:/Models/stable-diffusion-2-inpainting" #Local inpainting
-
-pipe = StableDiffusionPipeline.from_pretrained(repo_openjourney, torch_dtype=torch.float16)
-pipe = pipe.to("cuda")
-pipe.enable_attention_slicing()    
-
-#text2img = StableDiffusionPipeline(**pipe.components)
-#img2img = StableDiffusionImg2ImgPipeline(**pipe.components)
-#inpaint = StableDiffusionInpaintPipeline(**pipe.components)
+repo_anything = 'andite/anything-v4.0'
+repo_openjourney = 'prompthero/openjourney-v4'
+repo_diffusion15 = 'runwayml/stable-diffusion-v1-5'
+repo_inpainting = 'stabilityai/stable-diffusion-2-inpainting'
 
 @app.route('/', methods=['POST'])
 def img():
@@ -38,7 +29,7 @@ def img():
     src_img64 = str(data.get('srcimage', ''))    
     src_mask64 = str(data.get('srcmask', ''))
 
-    if (src_img64 != 'undefined') and (src_mask64!= 'undefined'): #imgInpaint
+    if (src_img64 != 'undefined') and (len(src_mask64)>0): #imgInpaint
         pipe = StableDiffusionInpaintPipeline.from_pretrained(repo_inpainting, torch_dtype=torch.float16)
         pipe = pipe.to("cuda")
         pipe.enable_attention_slicing()

@@ -51,7 +51,7 @@ def img():
             img_bytes = buffer.getvalue()
             img_b64 = base64.b64encode(img_bytes)
             return img_b64
-    return NULL    
+    return 'NULL'    
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8000)

@@ -70,7 +70,7 @@ def img():
         images = img2img(prompt = prompt, image=src_img, strength=0.60, guidance_scale=18.0, negative_prompt = negative_prompt).images
     else: #text2img
         text2img = StableDiffusionPipeline(**pipe.components)
-        images = text2img(prompt = prompt, negative_prompt  = negative_prompt, num_inference_steps=steps, width =512, height=512).images
+        images = text2img(prompt = prompt, negative_prompt  = negative_prompt, num_inference_steps=steps, width =1136, height=640).images
 
     image=images[0]
 

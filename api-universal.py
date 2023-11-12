@@ -72,7 +72,7 @@ def img():
             pipe = StableDiffusionPipeline.from_pretrained(repo_openjourney, torch_dtype=torch.float16)
             pipe = pipe.to("cuda")
             pipe.enable_attention_slicing()
-        images = pipe(prompt = prompt, negative_prompt  = negative_prompt, num_inference_steps=steps, width =512, height=512).images    
+        images = pipe(prompt = prompt, negative_prompt  = negative_prompt, num_inference_steps=steps, width =1136, height=640).images    
     
     image=images[0]
 

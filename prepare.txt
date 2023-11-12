@@ -1,5 +1,5 @@
 nvidia-smi
-python -m pip install torch
+python -m pip install torch==2.0.1 torchvision==0.15.2 torchaudio==2.0.2
 python -m pip install flask
 python -m pip install tensorflow
 python -m pip install transformers

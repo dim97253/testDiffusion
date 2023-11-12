@@ -11,7 +11,7 @@ from io import BytesIO
 
 app = Flask(__name__)
 
-repo_anything = 'andite/anything-v4.0'
+repo_anything = 'xyn-ai/anything-v4.0'
 repo_openjourney = 'prompthero/openjourney-v4'
 repo_diffusion15 = 'runwayml/stable-diffusion-v1-5'
 repo_diffusion_inpainting = 'runwayml/stable-diffusion-inpainting'

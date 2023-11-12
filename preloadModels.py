@@ -10,7 +10,7 @@ from io import BytesIO
 models = []
 models.append('prompthero/openjourney-v4')
 models.append('runwayml/stable-diffusion-v1-5')
-models.append('andite/anything-v4.0')
+models.append('xyn-ai/anything-v4.0')
 models.append('stabilityai/stable-diffusion-2-inpainting')
 
 for model in models :

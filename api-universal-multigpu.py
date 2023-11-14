@@ -1,4 +1,4 @@
-
+from watermark import add_watermark
 from flask import Flask, send_file, request, render_template, make_response
 from diffusers import DiffusionPipeline, DPMSolverMultistepScheduler, StableDiffusionPipeline, EulerAncestralDiscreteScheduler, AutoencoderKL, HeunDiscreteScheduler, StableDiffusionImg2ImgPipeline, StableDiffusionInpaintPipeline
 import torch
@@ -74,6 +74,8 @@ def img():
 
     image=images[0]
 
+    image = add_watermark(image)
+    
     buffer = BytesIO()
     image.save(buffer, format='png')
     img_bytes = buffer.getvalue()
